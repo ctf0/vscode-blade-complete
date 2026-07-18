@@ -1,0 +1,11 @@
+types/**
+src/**
+tests/**
+**/*.map
+.*/
+*.vsix
+**/.eslintrc.json
+.DS_Store
+tsconfig.json
+.fallowrc.json
+package-lock.json

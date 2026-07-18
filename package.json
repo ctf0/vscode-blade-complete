@@ -1,0 +1,182 @@
+{
+    "name": "blade-complete",
+    "displayName": "Blade Complete",
+    "description": "a richer support for laravel blade.",
+    "version": "0.0.1",
+    "publisher": "ctf0",
+    "author": "ctf0",
+    "icon": "images/icon.jpeg",
+    "repository": "https://github.com/ctf0/vscode-blade-complete",
+    "engines": {
+        "vscode": "^1.110.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "activationEvents": [
+        "workspaceContains:artisan"
+    ],
+    "main": "./out/main.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "bladeComplete.indexWorkspace",
+                "title": "Blade: Index Workspace"
+            }
+        ],
+        "markdown.markdownItPlugins": true,
+        "grammars": [
+            {
+                "scopeName": "text.html.php.blade.markdown",
+                "path": "./syntaxes/markdown-blade.tmLanguage.json",
+                "injectTo": [
+                    "text.html.markdown"
+                ],
+                "embeddedLanguages": {
+                    "meta.embedded.block.blade": "blade"
+                }
+            }
+        ],
+        "configuration": {
+            "title": "Blade Complete",
+            "properties": {
+                "bladeComplete.phpCommand": {
+                    "type": "string",
+                    "default": "php",
+                    "description": "PHP binary command"
+                },
+                "bladeComplete.showCodeLens": {
+                    "type": "boolean",
+                    "default": true,
+                    "markdownDescription": "toggle refrence code lens in blade files.\n\n(for large projects its better to `disable` it)"
+                },
+                "bladeComplete.enableDiagnostics": {
+                    "type": "boolean",
+                    "default": true,
+                    "markdownDescription": "toggle PHP diagnostics in blade files.\n\n(for large projects its better to `disable` it)"
+                },
+                "bladeComplete.phpTinkerCommand": {
+                    "type": "string",
+                    "default": "php artisan tinker --no-ansi --no-interaction --execute",
+                    "description": "PHP Artisan Tinker command for querying view data"
+                },
+                "bladeComplete.debug": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "enable debug mode"
+                },
+                "bladeComplete.dockerPath": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "default": null,
+                    "example": "/var/www/html",
+                    "description": "docker path"
+                },
+                "bladeComplete.customDirectives": {
+                    "type": "object",
+                    "default": {},
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "example": {
+                        "admin": "endadmin"
+                    },
+                    "markdownDescription": "Custom Blade directive pairs. Key is the directive name & value is its closing directive.\n\nex.`{\"admin\": \"endadmin\"}`"
+                },
+                "bladeComplete.phpDocBlocks": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [
+                        "\\Illuminate\\View\\ComponentAttributeBag $attributes",
+                        "\\Illuminate\\Support\\ViewErrorBag $errors"
+                    ],
+                    "description": "global blade variables declarations"
+                },
+                "bladeComplete.phpDefaultImports": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [
+                        "Illuminate\\Support\\{Str, Arr}",
+                        "Illuminate\\Support\\Facades\\Route"
+                    ],
+                    "description": "global blade imports declarations"
+                },
+                "bladeComplete.referenceDirectives": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [
+                        "props",
+                        "js",
+                        "json",
+                        "use"
+                    ],
+                    "description": "Blade directives that should resolve references to their generated PHP calls"
+                },
+                "bladeComplete.exclude": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [
+                        "**/vendor/**",
+                        "**/storage/**",
+                        "**/node_modules/**",
+                        "**/.*/**"
+                    ],
+                    "description": "Glob patterns to exclude from blade file discovery"
+                },
+                "bladeComplete.codeLens.maxSymbols": {
+                    "type": "number",
+                    "default": 500,
+                    "description": "Maximum number of symbols to process for reference code lens. Files with more symbols than this limit skip the blade reference scan to prevent performance issues."
+                },
+                "bladeComplete.codeLens.excludeFiles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [
+                        "**/_ide_helper.php",
+                        "**/_ide_helper_models.php"
+                    ],
+                    "description": "Glob patterns for PHP files that should skip blade reference scanning."
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run esbuild-base -- --pure:console.log --minify",
+        "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --external:php-parser --external:highlight.js --external:execa --external:picomatch --format=cjs --platform=node",
+        "esbuild": "npm run esbuild-base -- --sourcemap",
+        "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+        "watch": "npm run esbuild",
+        "typecheck": "tsc --noEmit",
+        "test": "node --test tests/*.test.ts"
+    },
+    "devDependencies": {
+        "@types/node": "^26.1.1",
+        "@types/vscode": "^1.110.0",
+        "esbuild": "^0.28.1",
+        "typescript": "^7.0.2"
+    },
+    "extensionDependencies": [
+        "bmewburn.vscode-intelephense-client",
+        "laravel.vscode-laravel",
+        "ctf0.laravel-goto-view"
+    ],
+    "dependencies": {
+        "escape-string-regexp": "^5.0.0",
+        "execa": "^10.0.0",
+        "highlight.js": "^11.11.1",
+        "php-parser": "^3.7.0",
+        "picomatch": "^4.0.5"
+    }
+}
