@@ -1,0 +1,138 @@
+{
+    "name": "blade-parser",
+    "displayName": "Blade Parser",
+    "description": "better & richer support for laravel blade files.",
+    "version": "0.0.1",
+    "publisher": "ctf0",
+    "author": "ctf0",
+    "icon": "images/icon.jpeg",
+    "repository": "https://github.com/ctf0/vscode-blade-parser",
+    "engines": {
+        "vscode": "^1.110.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onLanguage:blade",
+        "onLanguage:php",
+        "workspaceContains:artisan"
+    ],
+    "main": "./out/main.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "bladeParser.indexWorkspace",
+                "title": "Blade: Index Workspace"
+            }
+        ],
+        "markdown.markdownItPlugins": true,
+        "grammars": [
+            {
+                "scopeName": "text.html.php.blade.markdown",
+                "path": "./syntaxes/markdown-blade.tmLanguage.json",
+                "injectTo": [
+                    "text.html.markdown"
+                ],
+                "embeddedLanguages": {
+                    "meta.embedded.block.blade": "blade"
+                }
+            }
+        ],
+        "configurationDefaults": {
+            "[blade]": {
+                "editor.suggest.showSnippets": false
+            }
+        },
+        "configuration": {
+            "title": "Blade Parser",
+            "properties": {
+                "bladeParser.phpCommand": {
+                    "type": "string",
+                    "default": "php",
+                    "description": "PHP binary command"
+                },
+                "bladeParser.showCodeLens": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "enable code lens"
+                },
+                "bladeParser.phpTinkerCommand": {
+                    "type": "string",
+                    "default": "php artisan tinker --no-ansi --no-interaction --execute",
+                    "description": "PHP binary command"
+                },
+                "bladeParser.debug": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "enable debug mode"
+                },
+                "bladeParser.dockerPath": {
+                    "type": "string",
+                    "default": null,
+                    "example": "/var/www/html",
+                    "description": "docker path"
+                },
+                "bladeParser.customDirectives": {
+                    "type": "object",
+                    "default": {},
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "example": {
+                        "admin": "endadmin"
+                    },
+                    "markdownDescription": "Custom Blade directive pairs. Key is the directive name & value is its closing directive.\n\nex.`{\"admin\": \"endadmin\"}`"
+                },
+                "bladeParser.phpDocBlocks": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [
+                        "\\Illuminate\\View\\ComponentAttributeBag $attributes",
+                        "\\Illuminate\\Support\\ViewErrorBag $errors"
+                    ],
+                    "description": "global blade variables declarations that should be parsed as phpdoc blocks for better intellisense"
+                },
+                "bladeParser.referenceDirectives": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [
+                        "props",
+                        "js",
+                        "json",
+                        "use"
+                    ],
+                    "description": "Blade directives that should resolve references to their generated PHP calls"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run esbuild-base -- --pure:console.log --minify",
+        "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --external:php-parser --format=cjs --platform=node",
+        "esbuild": "npm run esbuild-base -- --sourcemap",
+        "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+        "watch": "npm run esbuild",
+        "typecheck": "tsc --noEmit"
+    },
+    "devDependencies": {
+        "@types/node": "^26.1.1",
+        "@types/vscode": "^1.110.0",
+        "esbuild": "^0.28.1",
+        "typescript": "^7.0.2"
+    },
+    "extensionDependencies": [
+        "bmewburn.vscode-intelephense-client",
+        "laravel.vscode-laravel",
+        "ctf0.laravel-goto-view"
+    ],
+    "dependencies": {
+        "escape-string-regexp": "^5.0.0",
+        "execa": "^10.0.0",
+        "php-parser": "^3.7.0"
+    }
+}

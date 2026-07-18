@@ -1,0 +1,7 @@
+typings/**
+src/**
+**/*.map
+.*/
+*.vsix
+**/.eslintrc.json
+.DS_Store
