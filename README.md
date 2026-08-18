@@ -4,7 +4,7 @@ VS Code extension that brings language intelligence to Laravel Blade templates (
 
 ## Requirements
 
-- [intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client) (`bmewburn.vscode-intelephense-client`)
+- [intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
 - PHP 8.x with the `php` binary available (or configured via `bladeComplete.phpCommand`)
 
 > [!Note]
@@ -153,8 +153,8 @@ All standard VS Code language features enabled for Blade files
 > [!NOTE]
 > "`View::creator` & data passed from controller" support is not possible without making an actual request to the endpoint.
 
-- `go to reference` through [Laravel Goto View](https://marketplace.visualstudio.com/items?itemName=ctf0.laravel-goto-view).
-- show`type & value` on hover.
+- `go to definition` through [Laravel Goto View](https://marketplace.visualstudio.com/items?itemName=ctf0.laravel-goto-view).
+- show `type & value` on hover.
 
 <hr>
 
@@ -173,7 +173,6 @@ All standard VS Code language features enabled for Blade files
 ### Default types :
 
 - you can use `bladeComplete.phpDocBlocks` & `bladeComplete.phpDefaultImports` to inject default type hints to be available across all blade files so you dont have to write them in each file.
-    - make sure to reindex the project/workspace after any modification using `"Blade: Index Workspace"`
 
 <hr>
 

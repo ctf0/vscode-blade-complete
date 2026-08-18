@@ -75,10 +75,6 @@ export function warnPerFileCompileFailure(fsPath: string): void {
     if (!trackPerFileCompileFailure(fsPath)) {
         return
     }
-
-    showOpenOutputWarning(
-        `Blade compilation failed for "${path.basename(fsPath)}". Check the "Blade Complete" output channel for details.`,
-    )
 }
 
 export function clearPerFileCompileFailure(fsPath: string): void {

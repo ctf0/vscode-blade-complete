@@ -2,7 +2,7 @@
     "name": "blade-complete",
     "displayName": "Blade Complete",
     "description": "a richer support for laravel blade.",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "ctf0",
     "author": "ctf0",
     "icon": "images/icon.jpeg",
@@ -92,7 +92,8 @@
                     },
                     "default": [
                         "\\Illuminate\\View\\ComponentAttributeBag $attributes",
-                        "\\Illuminate\\Support\\ViewErrorBag $errors"
+                        "\\Illuminate\\Support\\ViewErrorBag $errors",
+                        "\\Illuminate\\View\\ComponentSlot $slot"
                     ],
                     "description": "global blade variables declarations"
                 },
